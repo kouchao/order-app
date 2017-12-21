@@ -12,6 +12,8 @@ import 'font-awesome/css/font-awesome.css'
 
 Vue.prototype.$ajax = axios
 
+Vue.prototype.$baseUrl = 'http://localhost:20001'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
