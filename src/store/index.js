@@ -8,12 +8,16 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        title: '推荐'
+  state: {
+    title: '推荐',
+    activeTab: 'recommend'
+  },
+  mutations: {
+    setTitle(state, value) {
+      state.title = value
     },
-    mutations: {
-        setTitle (state, value) {
-            state.title = value
-        }
+    setActiveTab(state, value) {
+      state.activeTab = value
     }
+  }
 })

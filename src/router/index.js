@@ -14,6 +14,12 @@ export default new Router({
             component: recommend
         },
         {
+          path: '/recommend',
+          redirect: {
+            name: 'recommend'
+          }
+        },
+        {
             path: '/category',
             name: 'category',
             component: category
