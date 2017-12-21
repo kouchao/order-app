@@ -12,6 +12,8 @@ export default new Vuex.Store({
         title: '推荐'
     },
     mutations: {
-        setTitle: state => state.title
+        setTitle (state, value) {
+            state.title = value
+        }
     }
 })
