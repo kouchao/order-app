@@ -1,23 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+      <nav-bar></nav-bar>
+
+      <div class="body">
+          <router-view/>
+      </div>
+
+      <tab-bar></tab-bar>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+    import tabBar from './components/TabBar'
+    import navBar from './components/NavBar'
+    export default {
+        name: 'app',
+        components: {
+            tabBar,
+            navBar
+        }
+    }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .body {
+      position: absolute;
+      top: 40px;
+      bottom: 50px;
+      width: 100vw;
+      overflow: auto;
+  }
+
+  #app {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+  }
 </style>
