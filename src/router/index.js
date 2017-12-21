@@ -7,22 +7,22 @@ import category from '@/components/category'
 Vue.use(Router)
 
 export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'recommend',
-            component: recommend
-        },
-        {
-          path: '/recommend',
-          redirect: {
-            name: 'recommend'
-          }
-        },
-        {
-            path: '/category',
-            name: 'category',
-            component: category
-        }
-    ]
+  routes: [
+    {
+      path: '/',
+      name: 'recommend',
+      component: recommend
+    },
+    {
+      path: '/recommend',
+      redirect: {
+        name: 'recommend'
+      }
+    },
+    {
+      path: '/category',
+      name: 'category',
+      component: category
+    }
+  ]
 })

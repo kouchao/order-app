@@ -9,15 +9,16 @@
 
 <script>
   import store from '../store/index'
+
   export default {
     name: 'tab-bar',
-    data () {
+    data() {
       return {
         tabBarList: [{
           name: 'recommend',
           text: '推荐',
           icon: 'fa-heart-o'
-        },{
+        }, {
           name: 'category',
           text: '分类',
           icon: 'fa-heart-o'
@@ -26,7 +27,7 @@
     },
     store,
     computed: {
-      activeTab () {
+      activeTab() {
         return store.state.activeTab
       }
     }
@@ -42,9 +43,10 @@
     width: 100vw;
     border-top: 1px solid #f2f2f2;
     display: flex;
-    justify-content:  space-around;
+    justify-content: space-around;
     align-items: center;
   }
+
   .item {
     text-align: center;
   }
