@@ -1,6 +1,6 @@
 <template>
   <div class="recommend">
-    <div class="item" v-for="item of recommendList">
+    <router-link class="item" :to="{ name: 'details', params: { id: item.food.id }}" v-for="item of recommendList">
       <div class="flex">
         <img
           src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513860220143&di=7a8c7f69e188ef3938e629ec6d2e8982&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F4e4a20a4462309f7afc06a3f790e0cf3d7cad674.jpg"
@@ -19,7 +19,7 @@
         <div class="price">¥{{item.food.price}}</div>
         <div class="oldPrice">¥{{item.food.old_price}}</div>
       </div>
-    </div>
+    </router-link>
   </div>
 
 </template>

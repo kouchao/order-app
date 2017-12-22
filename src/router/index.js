@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import recommend from '@/components/recommend'
 import category from '@/components/category'
 import food from '@/components/food'
+import details from '@/components/details'
 
 
 Vue.use(Router)
@@ -29,6 +30,11 @@ export default new Router({
       path: '/food/:categoryId',
       name: 'food',
       component: food
+    },
+    {
+      path: '/details/:id',
+      name: 'details',
+      component: details
     }
   ]
 })

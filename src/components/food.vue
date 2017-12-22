@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend">
+  <div class="food">
     <div class="item" v-for="item of foodList">
       <div class="flex">
         <img
@@ -36,12 +36,10 @@
     },
     store,
     created: function () {
-      console.log(this.$route.params.categoryId)
       if(this.$route.params.categoryId) {
         this.categoryId = this.$route.params.categoryId
       }
       this.$store.commit('setTitle', '列表')
-      this.$store.commit('setActiveTab', this.$route.name)
       this.$store.commit('hideTabBar')
       this.getFood(0)
     },
