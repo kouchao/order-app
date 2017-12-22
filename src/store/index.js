@@ -10,7 +10,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     title: '推荐',
-    activeTab: 'recommend'
+    activeTab: 'recommend',
+    hideOrShowTabBar: true
   },
   mutations: {
     setTitle(state, value) {
@@ -18,6 +19,12 @@ export default new Vuex.Store({
     },
     setActiveTab(state, value) {
       state.activeTab = value
+    },
+    hideTabBar(state){
+      state.hideOrShowTabBar = false
+    },
+    showTabBar(state){
+      state.hideOrShowTabBar = true
     }
   }
 })

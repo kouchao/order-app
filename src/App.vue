@@ -6,16 +6,23 @@
       <router-view/>
     </div>
 
-    <tab-bar></tab-bar>
+    <tab-bar v-if="hideOrShowTabBar"></tab-bar>
   </div>
 </template>
 
 <script>
   import tabBar from './components/TabBar'
   import navBar from './components/NavBar'
+  import store from './store/index'
 
   export default {
     name: 'app',
+    computed: {
+      hideOrShowTabBar() {
+        return store.state.hideOrShowTabBar
+      }
+    },
+    store,
     components: {
       tabBar,
       navBar

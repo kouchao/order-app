@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <div class="item" v-for="item of categoryList">
+    <router-link :to="{ name: 'food', params: { categoryId: item.id }}" class="item" v-for="item of categoryList">
       <div class="flex">
         <div class="info">
           <div class="name">
@@ -9,7 +9,7 @@
         </div>
       </div>
       <i class="fa fa-chevron-right" aria-hidden="true"></i>
-    </div>
+    </router-link>
   </div>
 
 </template>
@@ -28,6 +28,7 @@
     created: function () {
       this.$store.commit('setTitle', '分类')
       this.$store.commit('setActiveTab', this.$route.name)
+
       this.getCategory(0)
     },
     methods: {
