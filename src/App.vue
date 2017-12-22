@@ -2,7 +2,7 @@
   <div id="app">
     <nav-bar></nav-bar>
 
-    <div class="body">
+    <div class="body" :class="hideOrShowTabBar ? 'showTabBar' : 'hideTabBar'">
       <router-view/>
     </div>
 
@@ -33,10 +33,18 @@
 <style scoped>
   .body {
     position: absolute;
-    top: 40px;
-    bottom: 50px;
     width: 100vw;
     overflow: auto;
+  }
+
+  .showTabBar {
+    top: 40px;
+    bottom: 50px;
+  }
+
+  .hideTabBar {
+    top: 40px;
+    bottom: 0px;
   }
 
   #app {
