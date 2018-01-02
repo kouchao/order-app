@@ -53,7 +53,7 @@
         let params = {
           page: page,
           size: 10,
-          categoryId: categoryId
+          category_id: categoryId
         }
 
         this.$ajax(url, {
