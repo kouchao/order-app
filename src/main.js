@@ -13,6 +13,7 @@ import 'font-awesome/css/font-awesome.css'
 Vue.prototype.$ajax = axios
 
 Vue.prototype.$baseUrl = 'http://localhost:20001'
+Vue.prototype.$imageUrl = 'http://yun.jskou.com/毕业设计/'
 
 Vue.config.productionTip = false
 

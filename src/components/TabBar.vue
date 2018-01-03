@@ -22,6 +22,18 @@
           name: 'category',
           text: '分类',
           icon: 'fa-heart-o'
+        }, {
+          name: 'waiter',
+          text: '服务员',
+          icon: 'fa-heart-o'
+        }, {
+          name: 'search',
+          text: '搜索',
+          icon: 'fa-heart-o'
+        }, {
+          name: 'order',
+          text: '订单',
+          icon: 'fa-heart-o'
         }]
       }
     },
