@@ -16,7 +16,7 @@
       return {
         tabBarList: [{
           name: 'recommend',
-          text: '推荐',
+          text: '首页',
           icon: 'fa-heart-o'
         }, {
           name: 'category',

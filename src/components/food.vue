@@ -1,25 +1,32 @@
 <template>
   <div class="food">
-    <router-link class="item" :to="{ name: 'details', params: { id: item.id }}" v-for="item of foodList">
-      <div class="flex">
-        <img
-          :src="$imageUrl + item.image"
-          alt="">
-        <div class="info">
-          <div class="name">
-            {{item.name}}
-          </div>
+    <div v-if="foodList.length > 0">
+      <router-link class="item" :to="{ name: 'details', params: { id: item.id }}" v-for="item of foodList">
+        <div class="flex">
+          <img
+            :src="$imageUrl + item.image"
+            alt="">
+          <div class="info">
+            <div class="name">
+              {{item.name}}
+            </div>
 
-          <div class="describe over">
-            {{item.describe}}
+            <div class="describe over">
+              {{item.describe}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex">
-        <div class="price">¥{{item.price}}</div>
-        <div class="oldPrice">¥{{item.old_price}}</div>
-      </div>
-    </router-link>
+        <div class="flex">
+          <div class="price">¥{{item.price}}</div>
+          <div class="oldPrice">¥{{item.old_price}}</div>
+        </div>
+      </router-link>
+    </div>
+
+    <div v-else style="margin-top: 100px; text-align: center">
+      <img src="../assets/nodata.svg" alt="" style="width: 70%;">
+      <p style="padding: 15px; font-size: 18px; color: #666666">没有数据</p>
+    </div>
   </div>
 
 </template>

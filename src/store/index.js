@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    title: '推荐',
+    title: '首页',
     activeTab: 'recommend',
     hideOrShowTabBar: true
   },

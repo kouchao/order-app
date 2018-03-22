@@ -1,5 +1,11 @@
 <template>
   <div class="recommend">
+      <!-- 配置slider组件 -->
+      <slider style="height:150px" :pages="pages" :sliderinit="sliderinit" @slide='slide' @tap='onTap' @init='onInit'>
+        <!-- 设置loading,可自定义 -->
+        <div slot="loading">loading...</div>
+      </slider>
+
     <router-link class="item" :to="{ name: 'details', params: { id: item.food.id }}" v-for="item of recommendList">
       <div class="flex">
         <img
@@ -26,19 +32,51 @@
 
 <script>
   import store from '../store/index'
-
+  import slider from 'vue-concise-slider'// import slider components
   export default {
     name: "recommend",
     data() {
       return {
-        recommendList: []
+        recommendList: [],
+        pages:[
+          {
+            html: '<div class="slider1">slider1</div>',
+            style: {
+              'background': '#1bbc9b'
+            }
+          },
+          {
+            html: '<div class="slider2">slider2</div>',
+            style: {
+              'background': '#4bbfc3'
+            }
+          },
+          {
+            html: '<div class="slider3">slider3</div>',
+            style: {
+              'background': '#7baabe'
+            }
+          }
+        ],
+        //Sliding configuration [obj]
+        sliderinit: {
+          currentPage: 0,
+          thresholdDistance: 100,
+          thresholdTime: 300,
+          loop:true,
+          infinite:1,
+          slidesToScroll:1
+        }
       }
     },
     store,
     created: function () {
-      this.$store.commit('setTitle', '推荐')
+      this.$store.commit('setTitle', '首页')
       this.$store.commit('setActiveTab', this.$route.name)
       this.getRecommend(0)
+    },
+    components: {
+      slider
     },
     methods: {
       getRecommend(page) {
@@ -57,6 +95,14 @@
             _this.recommendList = res.data.dataList
           }
         })
+      }, slide (data) {
+        console.log(data)
+      },
+      onTap (data) {
+        console.log(data)
+      },
+      onInit (data) {
+        console.log(data)
       }
     }
   }

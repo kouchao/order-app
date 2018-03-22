@@ -38,12 +38,12 @@
   }
 
   .showTabBar {
-    top: 40px;
+    top: 46px;
     bottom: 50px;
   }
 
   .hideTabBar {
-    top: 40px;
+    top: 46px;
     bottom: 0px;
   }
 
