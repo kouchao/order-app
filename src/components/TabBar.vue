@@ -40,7 +40,8 @@
     store,
     computed: {
       activeTab() {
-        return store.state.activeTab
+        const {tabBar} = store.state
+        return tabBar.activeTab
       }
     }
   }

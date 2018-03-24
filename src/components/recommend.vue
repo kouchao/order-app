@@ -1,72 +1,47 @@
 <template>
   <div class="recommend">
-      <!-- 配置slider组件 -->
-      <slider style="height:150px" :pages="pages" :sliderinit="sliderinit" @slide='slide' @tap='onTap' @init='onInit'>
-        <!-- 设置loading,可自定义 -->
-        <div slot="loading">loading...</div>
-      </slider>
 
-    <router-link class="item" :to="{ name: 'details', params: { id: item.food.id }}" v-for="item of recommendList">
-      <div class="flex">
-        <img
-          :src="$imageUrl + item.food.image"
-          alt="">
-        <div class="info">
-          <div class="name">
-            {{item.food.name}}
+    <yd-slider autoplay="3000">
+      <yd-slider-item>
+        <a href="http://www.ydcss.com">
+          <img src="http://static.ydcss.com/uploads/ydui/1.jpg">
+        </a>
+      </yd-slider-item>
+      <yd-slider-item>
+        <a href="http://www.ydcss.com">
+          <img src="http://static.ydcss.com/uploads/ydui/2.jpg">
+        </a>
+      </yd-slider-item>
+      <yd-slider-item>
+        <a href="http://www.ydcss.com">
+          <img src="http://static.ydcss.com/uploads/ydui/3.jpg">
+        </a>
+      </yd-slider-item>
+    </yd-slider>
+    <yd-list theme="3">
+      <yd-list-item type="link" v-for="item, key in recommendList" :key="key" :href="{ name: 'details', params: { id: item.food.id }}">
+        <img slot="img" :src="item.food.image">
+        <span slot="title">{{item.food.name}}</span>
+        <yd-list-other slot="other"  style="padding-top: 10px">
+          <div>
+            <span class="list-price"><em>¥</em>{{item.food.price}}</span>
+            <span class="list-del-price">¥{{item.food.old_price}}</span>
           </div>
-
-          <div class="describe over">
-            {{item.food.describe}}
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="price">¥{{item.food.price}}</div>
-        <div class="oldPrice">¥{{item.food.old_price}}</div>
-      </div>
-    </router-link>
+          <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
+        </yd-list-other>
+      </yd-list-item>
+    </yd-list>
   </div>
 
 </template>
 
 <script>
   import store from '../store/index'
-  import slider from 'vue-concise-slider'// import slider components
   export default {
     name: "recommend",
     data() {
       return {
         recommendList: [],
-        pages:[
-          {
-            html: '<div class="slider1">slider1</div>',
-            style: {
-              'background': '#1bbc9b'
-            }
-          },
-          {
-            html: '<div class="slider2">slider2</div>',
-            style: {
-              'background': '#4bbfc3'
-            }
-          },
-          {
-            html: '<div class="slider3">slider3</div>',
-            style: {
-              'background': '#7baabe'
-            }
-          }
-        ],
-        //Sliding configuration [obj]
-        sliderinit: {
-          currentPage: 0,
-          thresholdDistance: 100,
-          thresholdTime: 300,
-          loop:true,
-          infinite:1,
-          slidesToScroll:1
-        }
       }
     },
     store,
@@ -74,9 +49,6 @@
       this.$store.commit('setTitle', '首页')
       this.$store.commit('setActiveTab', this.$route.name)
       this.getRecommend(0)
-    },
-    components: {
-      slider
     },
     methods: {
       getRecommend(page) {
@@ -92,7 +64,13 @@
           params: params
         }).then(function (res) {
           if (res.data.code == 0) {
-            _this.recommendList = res.data.dataList
+            const {dataList} = res.data
+            dataList.forEach((o) => {
+              o.food.image = _this.$imageUrl + o.food.image
+              o.count = 0
+            })
+
+            _this.recommendList = dataList
           }
         })
       }, slide (data) {
@@ -140,13 +118,13 @@
     color: #666;
   }
 
-  .price {
+  .list-price {
     font-weight: bold;
     color: #f00;
   }
 
-  .oldPrice {
-    color: #f2f2f2;
+  .list-del-price {
+    color: #666666;
     text-decoration: line-through;
     font-size: 12px;
     padding-left: 3px;

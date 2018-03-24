@@ -13,8 +13,8 @@
     "axios": "^0.17.1",
     "font-awesome": "^4.7.0",
     "vue": "^2.5.2",
-    "vue-concise-slider": "^2.4.8",
     "vue-router": "^3.0.1",
+    "vue-ydui": "^1.2.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

@@ -7,16 +7,11 @@
 </template>
 
 <script>
-  import store from '../store/index'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'nav-bar',
-    store,
-    computed: {
-      title() {
-        return store.state.title
-      }
-    }
+    computed: mapGetters(['title'])
   }
 </script>
 

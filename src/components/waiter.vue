@@ -1,19 +1,50 @@
 <template>
-  <span>服务员</span>
+  <div>
+
+    <div class="banner">
+      <img src="../assets/服务员banner.jpg" alt="">
+    </div>
+
+    <div class="btn-item">
+      <div class="btn" @click="openNotify">呼叫服务员</div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import store from '../store/index'
+
   export default {
     name: "waiter",
-    store,
-    created: function () {
-      this.$store.commit('setTitle', '服务员')
-      this.$store.commit('setActiveTab', this.$route.name)
+    methods: {
+    openNotify() {
+      this.$dialog.notify({
+        mes: '服务员正在赶来的路上，请稍候。',
+        timeout: 3000,
+        callback: () => {
+          console.log('我走咯！');
+        }
+      });
+    }
     }
   }
 </script>
 
 <style scoped>
+  .banner img {
+    width: 100%;
+    height: auto;
+  }
 
+  .btn-item {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .btn {
+    padding: 15px 30px;
+    background: #f44336;
+    border-radius: 30px;
+    color: #fff;
+  }
 </style>

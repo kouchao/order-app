@@ -1,15 +1,23 @@
 <template>
-  <span>搜索</span>
+  <yd-search v-model="value1" :on-cancel="cancelHandler" :on-submit="submitHandler"></yd-search>
 </template>
 
 <script>
   import store from '../store/index'
   export default {
     name: "search",
-    store,
-    created: function () {
-      this.$store.commit('setTitle', '搜索')
-      this.$store.commit('setActiveTab', this.$route.name)
+    data() {
+      return {
+        value1: ''
+      }
+    },
+    methods: {
+      submitHandler(value) {
+        this.$dialog.toast({mes: `搜索：${value}`});
+      },
+      cancelHandler(){
+        this.value1 = ''
+      }
     }
   }
 </script>

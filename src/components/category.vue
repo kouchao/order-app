@@ -26,9 +26,8 @@
     },
     store,
     created: function () {
-      this.$store.commit('setTitle', '分类')
+      this.$store.dispatch('setTitle', '分类')
       this.$store.commit('setActiveTab', this.$route.name)
-
       this.getCategory(0)
     },
     methods: {
