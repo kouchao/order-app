@@ -35,14 +35,15 @@
     </yd-layout>
 
     <yd-popup v-model="shopCar" position="bottom" height="60%">
+      <div class="shopCarTitle">购物车</div>
       <yd-list theme="4">
         <yd-list-item v-for="item, key in shopCarList" :key="key">
           <img slot="img" :src="item.image">
           <span slot="title">{{item.name}}</span>
           <yd-list-other slot="other">
             <div>
-              <span class="demo-list-price"><em>¥</em>{{item.price}}</span>
-              <span class="demo-list-del-price">¥{{item.old_price}}</span>
+              <span class="list-price"><em>¥</em>{{item.price}}</span>
+              <span class="list-del-price">¥{{item.old_price}}</span>
             </div>
             <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
           </yd-list-other>
@@ -99,5 +100,22 @@
     right: 0;
     left: 0;
     bottom: 0;
+  }
+  .shopCarTitle {
+    padding: 10px;
+    text-align: center;
+    background: #f8f8f8;
+   }
+
+  .list-price {
+    font-weight: bold;
+    color: #f00;
+  }
+
+  .list-del-price {
+    color: #666666;
+    text-decoration: line-through;
+    font-size: 12px;
+    padding-left: 3px;
   }
 </style>
