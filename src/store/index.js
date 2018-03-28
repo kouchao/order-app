@@ -4,14 +4,20 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import navBar from './modules/navBar'
-import tabBar from './modules/tabBar'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  modules: {
-    navBar,
-    tabBar
+
+const store = new Vuex.Store({
+  state: {
+    shopCarList: []
+  },
+  mutations: {
+    upDateShopCar (state, list) {
+      state.shopCarList = list.map(o => o.food)
+    }
   }
 })
+
+
+export default store

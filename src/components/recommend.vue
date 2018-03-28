@@ -8,16 +8,18 @@
         </a>
       </yd-slider-item>
       <yd-slider-item>
-        <a href="http://www.ydcss.com">
+        <a href="javascropt:void(0);">
           <img src="http://static.ydcss.com/uploads/ydui/2.jpg">
         </a>
       </yd-slider-item>
       <yd-slider-item>
-        <a href="http://www.ydcss.com">
+        <a href="javascropt:void(0);">
           <img src="http://static.ydcss.com/uploads/ydui/3.jpg">
         </a>
       </yd-slider-item>
     </yd-slider>
+
+
     <yd-list theme="3">
       <yd-list-item type="link" v-for="item, key in recommendList" :key="key" :href="{ name: 'details', params: { id: item.food.id }}">
         <img slot="img" :src="item.food.image">
@@ -27,7 +29,7 @@
             <span class="list-price"><em>¥</em>{{item.food.price}}</span>
             <span class="list-del-price">¥{{item.food.old_price}}</span>
           </div>
-          <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
+          <yd-spinner min="0" unit="1" v-model="item.food.count"></yd-spinner>
         </yd-list-other>
       </yd-list-item>
     </yd-list>
@@ -44,11 +46,24 @@
         recommendList: [],
       }
     },
-    store,
     created: function () {
-      this.$store.commit('setTitle', '首页')
-      this.$store.commit('setActiveTab', this.$route.name)
       this.getRecommend(0)
+    },
+    watch:{
+      recommendList:{
+        handler(val, oldVal){
+
+          var arr = []
+          arr = this.recommendList.filter((item,index,arr) => {
+            return item.food.count > 0
+          })
+          if(arr.length > 0){
+            this.upDateShopCar(arr)
+          }
+
+        },
+        deep:true
+      }
     },
     methods: {
       getRecommend(page) {
@@ -67,20 +82,30 @@
             const {dataList} = res.data
             dataList.forEach((o) => {
               o.food.image = _this.$imageUrl + o.food.image
-              o.count = 0
+              o.food.count = 0
             })
 
-            _this.recommendList = dataList
+            _this.upDateRecommendList(dataList)
           }
         })
-      }, slide (data) {
-        console.log(data)
       },
-      onTap (data) {
-        console.log(data)
+      upDateShopCar(list){
+        store.commit('upDateShopCar', list)
       },
-      onInit (data) {
-        console.log(data)
+      upDateRecommendList(list){
+
+        if(store.state.shopCarList.length > 0){
+
+          store.state.shopCarList.forEach(o => {
+            list.forEach(p => {
+              if(p.food.id == o.id){
+                p.food.count = o.count
+              }
+            })
+          })
+        }
+        this.recommendList = list
+
       }
     }
   }

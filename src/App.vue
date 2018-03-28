@@ -1,15 +1,15 @@
 <template>
   <div id="app">
     <yd-layout>
-      <yd-navbar slot="navbar" title="NavBar">
+      <yd-navbar slot="navbar" title="点餐系统">
 
         <div @click="back" slot="left">
           <yd-navbar-back-icon></yd-navbar-back-icon>
         </div>
 
-        <router-link to="#" slot="right">
+        <div @click="shopCar = true" slot="right">
           已点
-        </router-link>
+        </div>
       </yd-navbar>
 
       <router-view/>
@@ -33,13 +33,39 @@
       </yd-tabbar>
 
     </yd-layout>
+
+    <yd-popup v-model="shopCar" position="bottom" height="60%">
+      <yd-list theme="4">
+        <yd-list-item v-for="item, key in shopCarList" :key="key">
+          <img slot="img" :src="item.image">
+          <span slot="title">{{item.name}}</span>
+          <yd-list-other slot="other">
+            <div>
+              <span class="demo-list-price"><em>¥</em>{{item.price}}</span>
+              <span class="demo-list-del-price">¥{{item.old_price}}</span>
+            </div>
+            <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
+          </yd-list-other>
+        </yd-list-item>
+      </yd-list>
+    </yd-popup>
   </div>
 </template>
 
 <script>
-
+  import store from './store/index'
   export default {
     name: 'app',
+    data(){
+      return {
+        shopCar: false
+      }
+    },
+    computed: {
+      shopCarList () {
+        return store.state.shopCarList
+      }
+    },
     methods: {
       back(){
         console.log(123132)
