@@ -14,7 +14,8 @@ const store = new Vuex.Store({
   },
   mutations: {
     upDateShopCar (state, list) {
-      state.shopCarList = list.map(o => o.food)
+      state.shopCarList = list
+
     }
   }
 })

@@ -90,6 +90,10 @@
         })
       },
       upDateShopCar(list){
+        console.log(list)
+        list = list.map(o => o.food)
+        list = list.filter(o => o.count > 0)
+        console.log(list)
         store.commit('upDateShopCar', list)
       },
       upDateRecommendList(list){

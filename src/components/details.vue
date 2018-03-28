@@ -1,20 +1,19 @@
 <template>
   <div class="details">
     <img
-      :src="$imageUrl + details.image"
+      :src="details.image"
       alt="">
     <div class="name">
       <div>{{details.name}}</div>
       <div class="price">¥{{details.price}}</div>
     </div>
+    <yd-spinner min="0" unit="1" v-model="details.count"></yd-spinner>
     <!--<div class="oldPrice">¥{{details.old_price}}</div>-->
 
 
     <div class="describe over">
       {{details.describe}}
     </div>
-
-    <div class="add">点</div>
 
   </div>
 
@@ -31,14 +30,28 @@
         details: {}
       }
     },
-    store,
     created: function () {
       if (this.$route.params.id) {
         this.id = this.$route.params.id
       }
 
-      this.$store.commit('hideTabBar')
       this.getFood(0)
+    },
+    watch:{
+      details:{
+        handler(){
+
+          var arr = []
+          arr = [this.details].filter((item,index,arr) => {
+            return item.count > 0
+          })
+          if(arr.length > 0){
+            this.upDateShopCar(arr)
+          }
+
+        },
+        deep:true
+      }
     },
     methods: {
       getFood(page) {
@@ -57,20 +70,44 @@
           params: params
         }).then(function (res) {
           if (res.data.code == 0) {
-            _this.details = res.data.data
-            _this.$store.commit('setTitle', _this.details.name)
+            let details = res.data.data
 
+            details.image = _this.$imageUrl + details.image
+            details.count = 0;
+
+
+            // _this.$store.commit('setTitle', _this.details.name)
+
+            _this.upDateShopCarList(details)
           }
         })
+      },
+      upDateShopCar(list){
+        list = list.filter(o => o.count > 0)
+        store.commit('upDateShopCar', list)
+      },
+      upDateShopCarList(list){
+
+        if(store.state.shopCarList.length > 0){
+
+          store.state.shopCarList.forEach(o => {
+            if(list.id == o.id){
+              list.count = o.count
+            }
+          })
+        }
+
+
+        this.details = list
+
       }
-    },
-    destroyed: function () {
-      this.$store.commit('showTabBar')
+
     }
   }
 </script>
 
 <style scoped>
+
   img {
     width: 100vw;
     height: 100vw;
@@ -95,19 +132,9 @@
     color: #f00;
   }
 
-  .add {
-    background: #f00;
-    color: #fff;
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 30px;
-    bottom: 30px;
 
+  .details {
+    background: #fff;
   }
 
 </style>
