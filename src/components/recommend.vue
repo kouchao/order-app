@@ -52,13 +52,8 @@
     watch:{
       recommendList:{
         handler(val, oldVal){
-
-          var arr = []
-          arr = this.recommendList.filter((item,index,arr) => {
-            return item.food.count > 0
-          })
-          if(arr.length > 0){
-            this.upDateShopCar(arr)
+          if(this.recommendList.length > 0){
+            this.upDateShopCar(this.recommendList)
           }
 
         },
@@ -90,10 +85,7 @@
         })
       },
       upDateShopCar(list){
-        console.log(list)
         list = list.map(o => o.food)
-        list = list.filter(o => o.count > 0)
-        console.log(list)
         store.commit('upDateShopCar', list)
       },
       upDateRecommendList(list){

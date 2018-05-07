@@ -15,19 +15,19 @@
       <router-view/>
 
       <yd-tabbar slot="tabbar">
-        <yd-tabbar-item title="首页" type="link" :link="{ name: 'recommend'}">
+        <yd-tabbar-item title="首页" type="link" :link="{ name: 'recommend'}" :active="$route.name == 'recommend'">
           <yd-icon name="home" slot="icon"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="分类" type="link" :link="{ name: 'category'}">
+        <yd-tabbar-item title="分类" type="link" :link="{ name: 'category'}" :active="$route.name == 'category'">
           <yd-icon name="shopcart" slot="icon"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="服务员" type="link" :link="{ name: 'waiter'}">
+        <yd-tabbar-item title="服务员" type="link" :link="{ name: 'waiter'}" :active="$route.name == 'waiter'">
           <yd-icon name="like" slot="icon"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="搜索" type="link" :link="{ name: 'search'}">
+        <yd-tabbar-item title="搜索" type="link" :link="{ name: 'search'}" :active="$route.name == 'search'">
           <yd-icon name="search" slot="icon"></yd-icon>
         </yd-tabbar-item>
-        <yd-tabbar-item title="订单" type="link" :link="{ name: 'order'}">
+        <yd-tabbar-item title="订单" type="link" :link="{ name: 'order'}" :active="$route.name == 'order'">
           <yd-icon name="feedback" slot="icon"></yd-icon>
         </yd-tabbar-item>
       </yd-tabbar>
@@ -64,12 +64,12 @@
     },
     computed: {
       shopCarList () {
+        console.log(store.state.shopCarList)
         return store.state.shopCarList
       }
     },
     methods: {
       back(){
-        console.log(123132)
         this.$router.go(-1)
       }
 

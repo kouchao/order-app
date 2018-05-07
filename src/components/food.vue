@@ -1,27 +1,20 @@
 <template>
   <div class="food">
-    <div v-if="foodList.length > 0">
-      <router-link class="item" :to="{ name: 'details', params: { id: item.id }}" v-for="item of foodList">
-        <div class="flex">
-          <img
-            :src="$imageUrl + item.image"
-            alt="">
-          <div class="info">
-            <div class="name">
-              {{item.name}}
-            </div>
-
-            <div class="describe over">
-              {{item.describe}}
-            </div>
+    <yd-list theme="4" v-if="foodList.length > 0">
+      <yd-list-item v-for="item, key in foodList" :key="key" type="link" :href="{ name: 'details', params: { id: item.id }}">
+        <img slot="img" :src="item.image">
+        <span slot="title">{{item.name}}</span>
+        <yd-list-other slot="other">
+          <div>
+            <span class="price"><em>¥</em>{{item.price}}</span>
+            <span class="oldPrice">¥{{item.old_price}}</span>
           </div>
-        </div>
-        <div class="flex">
-          <div class="price">¥{{item.price}}</div>
-          <div class="oldPrice">¥{{item.old_price}}</div>
-        </div>
-      </router-link>
-    </div>
+          <div>
+            <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
+          </div>
+        </yd-list-other>
+      </yd-list-item>
+    </yd-list>
 
     <div v-else style="margin-top: 100px; text-align: center">
       <img src="../assets/nodata.svg" alt="" style="width: 70%;">
@@ -46,8 +39,8 @@
       if(this.$route.params.categoryId) {
         this.categoryId = this.$route.params.categoryId
       }
-      this.$store.commit('setTitle', '列表')
-      this.$store.commit('hideTabBar')
+      // this.$store.commit('setTitle', '列表')
+      // this.$store.commit('hideTabBar')
       this.getFood(0)
     },
     methods: {
@@ -56,25 +49,57 @@
         let url = `${this.$baseUrl}/food`;
 
         let categoryId = this.categoryId || ''
+        let name = this.$route.query.name || ''
 
         let params = {
           page: page,
           size: 10,
-          category_id: categoryId
+          category_id: categoryId,
+          name
         }
 
         this.$ajax(url, {
           params: params
-        }).then(function (res) {
+        }).then((res) => {
           if (res.data.code == 0) {
-            _this.foodList = res.data.dataList
+            const {dataList} = res.data
+            dataList.forEach((o) => {
+              o.image = this.$imageUrl + o.image
+              o.count = 0
+            })
+            this.upDateList(dataList)
           }
         })
+      },
+      upDateShopCar(list){
+        store.commit('upDateShopCar', list)
+      },
+      upDateList(list){
+        if(store.state.shopCarList.length > 0){
+
+          store.state.shopCarList.forEach(o => {
+            list.forEach(p => {
+              if(p.id == o.id){
+                p.count = o.count
+              }
+            })
+          })
+        }
+        this.foodList = list
       }
     },
-    destroyed: function () {
-      this.$store.commit('showTabBar')
+    watch:{
+      foodList:{
+        handler(val, oldVal){
+          if(this.foodList.length > 0){
+            this.upDateShopCar(this.foodList)
+          }
+
+        },
+        deep:true
+      }
     }
+
   }
 </script>
 

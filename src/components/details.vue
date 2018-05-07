@@ -41,13 +41,7 @@
       details:{
         handler(){
 
-          var arr = []
-          arr = [this.details].filter((item,index,arr) => {
-            return item.count > 0
-          })
-          if(arr.length > 0){
-            this.upDateShopCar(arr)
-          }
+            this.upDateShopCar([this.details])
 
         },
         deep:true

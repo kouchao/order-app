@@ -1,15 +1,9 @@
 <template>
   <div class="category">
-    <router-link :to="{ name: 'food', params: { categoryId: item.id }}" class="item" v-for="item of categoryList">
-      <div class="flex">
-        <div class="info">
-          <div class="name">
-            {{item.name}}
-          </div>
-        </div>
-      </div>
-      <i class="fa fa-chevron-right" aria-hidden="true"></i>
-    </router-link>
+
+    <yd-cell-item arrow arrow type="link" :href="{ name: 'food', params: { categoryId: item.id }}" v-for="item of categoryList">
+      <span slot="left"> {{item.name}}</span>
+    </yd-cell-item>
   </div>
 
 </template>
@@ -53,24 +47,7 @@
 </script>
 
 <style scoped>
-
-  .item {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .yd-cell-item {
+    background: #fff;
   }
-
-  .item:active {
-    background: #f2f2f2;
-  }
-
-  .item + .item {
-    border-top: 1px solid #f2f2f2;
-  }
-
-  .info > div {
-    width: calc(100vw - 105px - 60px);
-  }
-
 </style>
