@@ -6,7 +6,7 @@
     </div>
 
     <div class="btn-item">
-      <div class="btn" @click="openNotify">呼叫服务员</div>
+      <div class="btn" @click="openNotify">取消呼叫</div>
     </div>
   </div>
 </template>

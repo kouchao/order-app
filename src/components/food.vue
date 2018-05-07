@@ -7,7 +7,7 @@
         <yd-list-other slot="other">
           <div>
             <span class="price"><em>¥</em>{{item.price}}</span>
-            <span class="oldPrice">¥{{item.old_price}}</span>
+            <span class="old-price">¥{{item.old_price}}</span>
           </div>
           <div>
             <yd-spinner min="0" unit="1" v-model="item.count"></yd-spinner>
@@ -105,43 +105,13 @@
 
 <style scoped>
 
-  .item {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .item:active {
-    background: #f2f2f2;
-  }
-
-  .item + .item {
-    border-top: 1px solid #f2f2f2;
-  }
-
-  .item img {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-  }
-
-  .info > div {
-    width: calc(100vw - 105px - 60px);
-  }
-
-  .info .describe {
-    font-size: 12px;
-    color: #666;
-  }
-
   .price {
     font-weight: bold;
     color: #f00;
   }
 
-  .oldPrice {
-    color: #f2f2f2;
+  .old-price {
+    color: #666666;
     text-decoration: line-through;
     font-size: 12px;
     padding-left: 3px;

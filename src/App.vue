@@ -35,8 +35,8 @@
     </yd-layout>
 
     <yd-popup v-model="shopCar" position="bottom" height="60%">
-      <div class="shopCarTitle">购物车</div>
-      <yd-list theme="4">
+      <div class="shopCarTitle">已点菜品</div>
+      <yd-list theme="4" v-if="shopCarList.length > 0">
         <yd-list-item v-for="item, key in shopCarList" :key="key">
           <img slot="img" :src="item.image">
           <span slot="title">{{item.name}}</span>
@@ -49,6 +49,10 @@
           </yd-list-other>
         </yd-list-item>
       </yd-list>
+      <div class="no-list" v-else>
+        空空如也,快去点餐吧！
+      </div>
+      <div class="submit-order">提交菜单</div>
     </yd-popup>
   </div>
 </template>
@@ -94,6 +98,11 @@
     bottom: 0px;
   }
 
+  .no-list {
+    padding: 50px;
+    text-align: center;
+  }
+
   #app {
     position: absolute;
     top: 0;
@@ -117,5 +126,18 @@
     text-decoration: line-through;
     font-size: 12px;
     padding-left: 3px;
+  }
+
+  .submit-order {
+
+    height: 60px;
+    color: #fff;
+    background: #f00;
+    line-height: 60px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
 </style>

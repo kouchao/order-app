@@ -108,37 +108,6 @@
 </script>
 
 <style scoped>
-
-  .item {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .item:active {
-    background: #f2f2f2;
-  }
-
-  .item + .item {
-    border-top: 1px solid #f2f2f2;
-  }
-
-  .item img {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-  }
-
-  .info > div {
-    width: calc(100vw - 105px - 60px);
-  }
-
-  .info .describe {
-    font-size: 12px;
-    color: #666;
-  }
-
   .list-price {
     font-weight: bold;
     color: #f00;

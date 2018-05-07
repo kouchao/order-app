@@ -5,12 +5,16 @@
       alt="">
     <div class="name">
       <div>{{details.name}}</div>
-      <div class="price">¥{{details.price}}</div>
+      <div class="price"><span class="old-price">¥{{details.old_price}}</span>¥{{details.price}}</div>
+
     </div>
-    <yd-spinner min="0" unit="1" v-model="details.count"></yd-spinner>
-    <!--<div class="oldPrice">¥{{details.old_price}}</div>-->
+    <div class="count">
+      <yd-spinner min="0" unit="1" v-model="details.count"></yd-spinner>
+    </div>
 
 
+
+    <div class="describe-title">菜品描述</div>
     <div class="describe over">
       {{details.describe}}
     </div>
@@ -121,14 +125,32 @@
     color: #666;
   }
 
+  .describe-title {
+    padding: 0 15px;
+  }
+
   .price {
     font-size: 16px;
     color: #f00;
   }
 
+  .old-price {
+    color: #666666;
+    text-decoration: line-through;
+    font-size: 12px;
+    padding-left: 3px;
+    margin-right: 10px;
+  }
+
 
   .details {
     background: #fff;
+  }
+
+
+  .count {
+    padding: 10px;
+    text-align: right;
   }
 
 </style>
