@@ -51,7 +51,6 @@
     },
     methods: {
       getFood(page) {
-        var _this = this;
         let url = `${this.$baseUrl}/food`;
 
         let categoryId = this.categoryId || ''
