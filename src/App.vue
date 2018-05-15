@@ -52,13 +52,15 @@
       <div class="no-list" v-else>
         空空如也,快去点餐吧！
       </div>
-      <div class="submit-order">提交菜单</div>
+      <div class="submit-order" @click="submitOrder">提交菜单</div>
     </yd-popup>
   </div>
 </template>
 
 <script>
   import store from './store/index'
+  import api from './utils/api'
+  import Bus from './utils/Bus'
   export default {
     name: 'app',
     data(){
@@ -66,15 +68,45 @@
         shopCar: false
       }
     },
+    created(){
+      if(this.$route.query.tableId){
+        sessionStorage.tableId = this.$route.query.tableId
+      }
+    },
     computed: {
       shopCarList () {
-        console.log(store.state.shopCarList)
         return store.state.shopCarList
       }
     },
     methods: {
       back(){
         this.$router.go(-1)
+      },
+      submitOrder(){
+        if(!store.state.shopCarList || store.state.shopCarList.length == 0){
+          return ;
+        }
+
+        let url = api.order
+
+        let params = {
+          food: store.state.shopCarList,
+          table_id: sessionStorage.tableId,
+          order_id: sessionStorage.orderId
+        }
+
+        this.$ajax.post(url, params).then(res => {
+          if (res.data.code == 0) {
+            this.$dialog.toast({
+              mes: '订单已提交',
+              timeout: 1000,
+              icon: 'success'
+            });
+            sessionStorage.orderId ? '' : sessionStorage.orderId = res.data.data.id
+            store.commit('clearShopCar')
+            Bus.$emit('clearShopCar');
+          }
+        })
       }
 
     }
@@ -114,6 +146,11 @@
     padding: 10px;
     text-align: center;
     background: #f8f8f8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
    }
 
   .list-price {
@@ -135,9 +172,14 @@
     background: #f00;
     line-height: 60px;
     text-align: center;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
   }
+
+  .yd-popup-content .yd-list {
+    padding: 39px 0 60px;
+  }
+
 </style>

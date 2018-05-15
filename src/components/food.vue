@@ -26,7 +26,7 @@
 
 <script>
   import store from '../store/index'
-
+  import Bus from '../utils/Bus'
   export default {
     name: "food-list",
     data() {
@@ -39,9 +39,15 @@
       if(this.$route.params.categoryId) {
         this.categoryId = this.$route.params.categoryId
       }
-      // this.$store.commit('setTitle', '列表')
-      // this.$store.commit('hideTabBar')
+
+      let _this = this
+      Bus.$on('clearShopCar', function () {
+        _this.foodList.forEach((o) => {
+          o.count = 0
+        })
+      });
       this.getFood(0)
+
     },
     methods: {
       getFood(page) {
@@ -74,7 +80,7 @@
       upDateShopCar(list){
         store.commit('upDateShopCar', list)
       },
-      upDateList(list){
+      upDateList(list = this.foodList){
         if(store.state.shopCarList.length > 0){
 
           store.state.shopCarList.forEach(o => {
@@ -94,7 +100,6 @@
           if(this.foodList.length > 0){
             this.upDateShopCar(this.foodList)
           }
-
         },
         deep:true
       }

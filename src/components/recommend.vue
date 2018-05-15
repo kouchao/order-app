@@ -39,6 +39,7 @@
 
 <script>
   import store from '../store/index'
+  import Bus from '../utils/Bus'
   export default {
     name: "recommend",
     data() {
@@ -47,6 +48,12 @@
       }
     },
     created: function () {
+      let _this = this
+      Bus.$on('clearShopCar', function () {
+        _this.recommendList.forEach((o) => {
+          o.food.count = 0
+        })
+      });
       this.getRecommend(0)
     },
     watch:{

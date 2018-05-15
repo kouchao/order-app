@@ -26,7 +26,7 @@
 
 <script>
   import store from '../store/index'
-
+  import Bus from '../utils/Bus'
   export default {
     name: "food-list",
     data() {
@@ -38,6 +38,11 @@
       if (this.$route.params.id) {
         this.id = this.$route.params.id
       }
+
+      let _this = this
+      Bus.$on('clearShopCar', function () {
+        _this.details.count = 0
+      });
 
       this.getFood(0)
     },

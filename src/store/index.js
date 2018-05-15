@@ -14,10 +14,11 @@ const store = new Vuex.Store({
   },
   mutations: {
     upDateShopCar (state, list) {
-
       let shopCarList = Array.from(new Map([...state.shopCarList, ...list].map(x => [x.id, x])).values())
       state.shopCarList = shopCarList.filter(o => o.count > 0)
-      console.log(state.shopCarList)
+    },
+    clearShopCar(state){
+      state.shopCarList = []
     }
   }
 })
