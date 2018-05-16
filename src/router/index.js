@@ -4,7 +4,7 @@ import recommend from '@/components/recommend'
 import category from '@/components/category'
 import food from '@/components/food'
 import details from '@/components/details'
-import waiter from '@/components/waiter'
+import Waiter from '@/components/Waiter'
 import search from '@/components/search'
 import order from '@/components/order'
 
@@ -29,7 +29,7 @@ export default new Router({
     {
       path: '/waiter',
       name: 'waiter',
-      component: waiter
+      component: Waiter
     },
     {
       path: '/search',

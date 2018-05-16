@@ -6,23 +6,29 @@
     </div>
 
     <div class="btn-item">
-      <div class="btn" @click="openNotify">取消呼叫</div>
+      <div class="btn" @click="openNotify">呼叫服务员</div>
     </div>
   </div>
 </template>
 
 <script>
+  import api from '../utils/api'
 
   export default {
-    name: "waiter",
+    name: "Waiter",
     methods: {
     openNotify() {
       this.$dialog.notify({
         mes: '服务员正在赶来的路上，请稍候。',
-        timeout: 3000,
+        timeout: 1000,
         callback: () => {
           console.log('我走咯！');
         }
+      });
+      this.$socket.emit('message', {
+        id: this.$socket.id,
+        name: sessionStorage.name,
+        msg: '呼叫服务员'
       });
     }
     }

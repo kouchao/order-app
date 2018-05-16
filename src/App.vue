@@ -68,9 +68,16 @@
         shopCar: false
       }
     },
+    sockets:{
+      connect: function(){
+        this.id = this.$socket.id
+        console.log('$socket.id: ' + this.$socket.id)
+      }
+    },
     created(){
       if(this.$route.query.tableId){
         sessionStorage.tableId = this.$route.query.tableId
+        this.getTable()
       }
     },
     computed: {
@@ -105,6 +112,31 @@
             sessionStorage.orderId ? '' : sessionStorage.orderId = res.data.data.id
             store.commit('clearShopCar')
             Bus.$emit('clearShopCar');
+            this.$socket.emit('message', {
+              id: this.$socket.id,
+              name: sessionStorage.name,
+              msg: '提交了菜单'
+            });
+          }
+        })
+      },
+      getTable(){
+        let url = api.table
+
+        let params = {
+          id: this.$route.query.tableId
+        }
+
+        this.$ajax(url, {
+          params
+        }).then(res => {
+          if (res.data.code == 0) {
+            sessionStorage.name = res.data.data.name
+            this.$socket.emit('login', {
+              id: this.$socket.id,
+              name: res.data.data.name,
+              msg: '登录'
+            });
           }
         })
       }
